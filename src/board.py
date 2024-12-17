@@ -166,4 +166,4 @@ class Board:
     def host_game(self):
         pass
 
-    #   blub
+    # blub
