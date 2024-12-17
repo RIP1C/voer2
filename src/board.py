@@ -145,5 +145,3 @@ class Board:
         # TODO: Bas
     def host_game(self):
         pass
-
-    # blub
