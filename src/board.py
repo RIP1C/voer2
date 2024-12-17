@@ -28,26 +28,34 @@ class Board:
 
         return s       # het bord is compleet, geef het terug
 
+        # TODO: Nelson
     def add_move(self, col, ox):
         pass
 
+        # TODO: Bas
     def clear(self):
-        pass
+        self.data = [[' ']*self.width for row in range(self.height)]
 
+        # TODO: Ronald
     def set_board(self, move_string):
         pass
 
-    def allows_move(self, col):
+        # TODO: Demian
+    def allows_move(self, col) -> bool:
         pass
 
-    def is_full(self):
-        pass
+        # TODO: Ronald
+    def is_full(self) -> bool:
+        return True
 
+        # TODO: Demian
     def del_move(self, col):
         pass
 
-    def wins_for(self, ox):
+        # TODO: Nelson
+    def wins_for(self, ox) -> str:
         pass
 
+        # TODO: Bas
     def host_game(self):
         pass
