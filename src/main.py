@@ -1,10 +1,18 @@
 from board import Board
 
 # Hier begint onze programma.
-def main():
-    pass
+def main(board: Board):
+    board.set_board("0000")
+    board.add_move(0, "X")
+    print(board)
+    input()
+    
 
-main()
+
+
+
+
+main(Board(7, 6)) 
 
 
 
