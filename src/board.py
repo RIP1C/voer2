@@ -118,7 +118,27 @@ class Board:
 
         # TODO: Ronald
     def set_board(self, move_string):
-        pass
+        """Accepts a string of columns and places
+        alternating checkers in those columns,
+        starting with 'X'.
+
+        For example, call b.set_board('012345')
+        to see 'X's and 'O's alternate on the
+        bottom row, or b.set_board('000000') to
+        see them alternate in the left column.
+
+        move_string must be a string of one-digit integers.
+        """
+        next_checker = 'X'   # we starten door een 'X' te spelen
+        for col_char in move_string:
+            col = int(col_char)
+            if 0 <= col <= self.width:
+                self.add_move(col, next_checker)
+            
+            if next_checker == 'X':
+                next_checker = 'O'
+            else:
+                next_checker = 'X'
 
         # TODO: Demian
     def allows_move(self, col) -> bool:
