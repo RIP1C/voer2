@@ -122,8 +122,17 @@ class Board:
 
         # TODO: Demian
     def allows_move(self, col) -> bool:
-        pass
-
+        
+        if col < 0 or col >= self.width:
+            return False
+        for row in range(self.height):
+            if self.data[row][col] == ' ':
+                return True           
+        return False
+                
+                    
+                    
+    
         # TODO: Ronald
     def is_full(self) -> bool:
         return True
@@ -146,4 +155,6 @@ class Board:
     def host_game(self):
         pass
 
-    #   blub
+b = Board(2, 2)
+assert b.allows_move(1) == True
+assert b.allows_move(2) == False
