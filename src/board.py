@@ -86,7 +86,7 @@ class Board():
 
         # We hoeven niets terug te geven vanuit een constructor!
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """This method returns a string representation
            for an object of type Board.
         """
@@ -107,17 +107,22 @@ class Board():
         s += '|' + '\n'
         return s       # het bord is compleet, geef het terug
 
-    def add_move(self, col: int, ox: str):
+    def add_move(self, col: int, ox: str) -> None:
+        """
+        Adds a move to the board.
+        For loop checks if a cell is already filled.
+        """
         col = int(col)
         for row in range(self.height - 1, -1, -1 ):
             if self.data[row][col] == ' ':
                 self.data[row][col] = ox
                 break
 
-    def clear(self):
+    def clear(self) -> None:
+        """Clears the board."""
         self.data = [[' ']*self.width for row in range(self.height)]
 
-    def set_board(self, move_string):
+    def set_board(self, move_string: str) -> None:
         """Accepts a string of columns and places
         alternating checkers in those columns,
         starting with 'X'.
@@ -141,6 +146,9 @@ class Board():
                 next_checker = 'X'
 
     def allows_move(self, col) -> bool:
+        """
+        Checks if a move is legal.
+        """
         col = int(col)
         if col < 0 or col >= self.width:
             return False
@@ -150,6 +158,9 @@ class Board():
         return False
                 
     def is_full(self) -> bool:
+        """
+        Checks if board is full.
+        """
         counter = 0
         for col in self.data[0]:
             if col != ' ':
@@ -158,7 +169,10 @@ class Board():
                 return True
         return False
 
-    def del_move(self, col):
+    def del_move(self, col) -> None:
+        """
+        Deletes a move on the selected col(umn)
+        """
         col = int(col)
         if col < 0 or col >= self.width:
             return
@@ -167,7 +181,11 @@ class Board():
                 self.data[row][col] = ' '
                 return
             
-    def wins_for(self, ox) -> bool:
+    def wins_for(self, ox: str) -> bool:
+        """
+        Checks if player has won.
+        ox = 1 char
+        """
         for row in range(self.height):
             for col in range(self.width):
                 if in_a_row_n_east(ox, row, col, self.data, 4) or in_a_row_n_northeast(ox, row, col, self.data, 4) or in_a_row_n_south(ox, row, col, self.data, 4) or in_a_row_n_southeast(ox, row, col, self.data, 4):
@@ -187,9 +205,13 @@ class Board():
     def ai_move(self, ox):     
         pass
 
-    def host_game(self):
-        
+    def host_game(self) -> str:
+        """
+        Starts a game of vier op een rij.
+        """
+
         running = True
+        winner = ''
         current_player = 'X'
         old_player = 'O'
 
@@ -214,12 +236,17 @@ class Board():
 
             # Check of dat de winnende move was of bord vol is
             if self.wins_for(current_player) or self.is_full():
+                print(f"\n{self}")
                 if self.is_full():
                     print(f"Bord is vol -- Niemand heeft gewonnen!")
+                    winner = " "
                 else:
                     print(f"{current_player} wint -- Gefeliciteerd!")
+                    winner = current_player
                 running = False
             
             # Einde ronde, wissel van speler
             (current_player, old_player) = (old_player, current_player)
+        
+        return winner
 
