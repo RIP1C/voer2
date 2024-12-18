@@ -170,11 +170,23 @@ class Board:
         else: 
             return False
         
+    def cols_to_win(self, ox):
+        
+        ai = []
+        if self.allows_move() == True:
+            return self.add_move()
+        if self.wins_for() == True:
+            ai += col
 
-        # TODO: Bas
+
+    def ai_move(self, ox):     
+
+
+    # TODO: Bas
     def host_game(self):
         pass
 
 b = Board(2, 2)
 assert b.allows_move(1) == True
 assert b.allows_move(2) == False
+
