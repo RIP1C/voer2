@@ -73,7 +73,7 @@ def in_a_row_n_southeast(ch, r_start, c_start, a, n):
             return False
     return True  # alle offsets kloppen, dus we geven True terug
 
-class Board:
+class Board():
     """A data type representing a Connect-4 board
        with an arbitrary number of rows and columns.
     """
@@ -194,9 +194,12 @@ class Board:
 
     # TODO: Bas
     def host_game(self):
-        pass
+        
+        running = True
+        handbrake = False
+        current_player = 'X'
+        old_player = current_player
 
-b = Board(2, 2)
-
-assert b.allows_move(1) == True
-assert b.allows_move(2) == False
+        while running:
+            if handbrake:
+                running = False

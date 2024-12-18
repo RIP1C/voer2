@@ -4,5 +4,4 @@ from board import Board
 def main(board: Board):
     pass
     
-    
-main(Board(2, 2)) 
+main(Board(7, 6)) 
