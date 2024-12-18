@@ -2,7 +2,6 @@ from board import Board
 
 # Hier begint onze programma.
 def main(board: Board):
-    pass
+    board.host_game()
     
-    
-main(Board(2, 2)) 
+main(Board(7, 6)) 

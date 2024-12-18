@@ -73,7 +73,7 @@ def in_a_row_n_southeast(ch, r_start, c_start, a, n):
             return False
     return True  # alle offsets kloppen, dus we geven True terug
 
-class Board:
+class Board():
     """A data type representing a Connect-4 board
        with an arbitrary number of rows and columns.
     """
@@ -97,26 +97,26 @@ class Board:
                 s += self.data[row][col] + '|'
             s += '\n'
 
-        s += (2*self.width + 1) * '-'   # onderkant van het bord
+        s += (2*self.width + 1) * '-' + '\n'  # onderkant van het bord
+
+        for col in range(0, self.width):
+            s += '|'
+            s += str(col)
 
         # hier moeten de nummers nog onder gezet worden
-
+        s += '|' + '\n'
         return s       # het bord is compleet, geef het terug
 
-        # TODO: Nelson
-    def add_move(self, col, ox):
-        
+    def add_move(self, col: int, ox: str):
+        col = int(col)
         for row in range(self.height - 1, -1, -1 ):
-            if self.data[row][col] == ' ' :
+            if self.data[row][col] == ' ':
                 self.data[row][col] = ox
                 break
 
-
-        # TODO: Bas
     def clear(self):
         self.data = [[' ']*self.width for row in range(self.height)]
 
-        # TODO: Ronald
     def set_board(self, move_string):
         """Accepts a string of columns and places
         alternating checkers in those columns,
@@ -140,17 +140,15 @@ class Board:
             else:
                 next_checker = 'X'
 
-        # TODO: Demian
     def allows_move(self, col) -> bool:
-        
+        col = int(col)
         if col < 0 or col >= self.width:
             return False
         for row in range(self.height):
             if self.data[row][col] == ' ':
-                return True           
+                return True
         return False
                 
-        # TODO: Ronald
     def is_full(self) -> bool:
         counter = 0
         for col in self.data[0]:
@@ -160,9 +158,8 @@ class Board:
                 return True
         return False
 
-        # TODO: Demian
     def del_move(self, col):
-        
+        col = int(col)
         if col < 0 or col >= self.width:
             return
         for row in range(self.height):
@@ -170,8 +167,6 @@ class Board:
                 self.data[row][col] = ' '
                 return
             
-
-        # TODO: Nelson
     def wins_for(self, ox) -> bool:
         for row in range(self.height):
             for col in range(self.width):
@@ -192,11 +187,39 @@ class Board:
     def ai_move(self, ox):     
         pass
 
-    # TODO: Bas
     def host_game(self):
-        pass
+        
+        running = True
+        current_player = 'X'
+        old_player = 'O'
 
-b = Board(2, 2)
+        while running:
+            print(f"\n{self}")
+            inp = input(f'Keuze van {current_player}: ')
 
-assert b.allows_move(1) == True
-assert b.allows_move(2) == False
+            # Check of inp een integer is
+            try:
+                int(inp)
+            except ValueError:
+                print(f"Speler, '{current_player}', {inp} is geen integer!")
+                continue
+
+            # Checked of wat de speler doet wel mag
+            if not self.allows_move(inp):
+                print(f"Speler, '{current_player}', dat mag niet!")
+                continue
+            
+            # Add move
+            self.add_move(inp, current_player)
+
+            # Check of dat de winnende move was of bord vol is
+            if self.wins_for(current_player) or self.is_full():
+                if self.is_full():
+                    print(f"Bord is vol -- Niemand heeft gewonnen!")
+                else:
+                    print(f"{current_player} wint -- Gefeliciteerd!")
+                running = False
+            
+            # Einde ronde, wissel van speler
+            (current_player, old_player) = (old_player, current_player)
+
