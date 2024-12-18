@@ -155,7 +155,13 @@ class Board:
     
         # TODO: Ronald
     def is_full(self) -> bool:
-        return True
+        counter = 0
+        for col in self.data[0]:
+            if col != ' ':
+                counter += 1
+            if counter >= self.width:
+                return True
+        return False
 
         # TODO: Demian
     def del_move(self, col):
