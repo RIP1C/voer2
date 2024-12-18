@@ -1,3 +1,5 @@
+[![tests](https://github.com/RIP1C/voer2/actions/workflows/tests.yaml/badge.svg)](https://github.com/RIP1C/voer2/actions/workflows/tests.yaml)
+
 # voer2
 Vier Op Een Rij
 
