@@ -152,7 +152,13 @@ class Board:
                 
         # TODO: Ronald
     def is_full(self) -> bool:
-        return True
+        counter = 0
+        for col in self.data[0]:
+            if col != ' ':
+                counter += 1
+            if counter >= self.width:
+                return True
+        return False
 
         # TODO: Demian
     def del_move(self, col):
@@ -174,8 +180,19 @@ class Board:
         else: 
             return False
         
+    def cols_to_win(self, ox):
+        
+        ai = []
+        if self.allows_move() == True:
+            return self.add_move()
+        if self.wins_for() == True:
+            ai += col
 
-        # TODO: Bas
+
+    def ai_move(self, ox):     
+
+
+    # TODO: Bas
     def host_game(self):
         pass
 
