@@ -2,8 +2,7 @@ from board import Board
 
 # Hier begint onze programma.
 def main(board: Board):
-    board.set_board("0000")
-    board.add_move(0, "X")
+    pass
     print(board)
     input()
     
@@ -12,7 +11,7 @@ def main(board: Board):
 
 
 
-main(Board(7, 6)) 
+main(Board(2, 2)) 
 
 
 

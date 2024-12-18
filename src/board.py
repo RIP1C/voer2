@@ -150,16 +150,20 @@ class Board:
                 return True           
         return False
                 
-                    
-                    
-    
         # TODO: Ronald
     def is_full(self) -> bool:
         return True
 
         # TODO: Demian
     def del_move(self, col):
-        pass
+        
+        if col < 0 or col >= self.width:
+            return
+        for row in range(self.height):
+            if self.data[row][col] != ' ':
+                self.data[row][col] = ' '
+                return
+            
 
         # TODO: Nelson
     def wins_for(self, ox) -> bool:
@@ -176,5 +180,6 @@ class Board:
         pass
 
 b = Board(2, 2)
+
 assert b.allows_move(1) == True
 assert b.allows_move(2) == False
