@@ -190,7 +190,7 @@ class Board:
 
 
     def ai_move(self, ox):     
-
+        pass
 
     # TODO: Bas
     def host_game(self):
