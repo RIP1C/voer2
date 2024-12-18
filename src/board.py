@@ -1,3 +1,5 @@
+import random
+
 def in_a_row_n_east(ch, r_start, c_start, a, n):
     """Starting from (row, col) of (r_start, c_start)
        within the 2d list-of-lists a (array),
@@ -74,6 +76,7 @@ def in_a_row_n_southeast(ch, r_start, c_start, a, n):
     return True  # alle offsets kloppen, dus we geven True terug
 
 class Board():
+
     """A data type representing a Connect-4 board
        with an arbitrary number of rows and columns.
     """
@@ -193,17 +196,90 @@ class Board():
         else: 
             return False
         
-    def cols_to_win(self, ox):
+    def cols_to_win(self, ox: str) -> list[int]:
         
         ai = []
-        if self.allows_move() == True:
-            return self.add_move()
-        if self.wins_for() == True:
-            ai += col
+
+        for col, skip in enumerate(self.data[0]):
+            if self.allows_move(col) == True:
+                self.add_move(col, ox)
+                if self.wins_for(ox):
+                    ai.append(col)
+                self.del_move(col)
+        
+        return ai
+
+    def ai_move(self, ox) -> int:
+
+        ai = ox
+        if ai == 'X':
+            opp = 'O'
+        else:
+            opp = 'X'
+
+        ai_pot_wins = self.cols_to_win(ai)
+        opp_pot_wins = self.cols_to_win(opp)
+
+        ai_len = len(ai_pot_wins)
+        opp_len = len(opp_pot_wins)
+
+        if ai_len > 0:
+            return ai_pot_wins[random.randrange(ai_len)]
+        elif opp_len > 0:
+            return opp_pot_wins[random.randrange(opp_len)]
+        else:
+            return random.randrange(self.width - 1)
 
 
-    def ai_move(self, ox):     
-        pass
+
+    def host_ai_game(self) -> str:
+        """
+        Starts a game of vier op een rij with a AI opponent.
+        """
+
+        running = True
+        winner = ''
+        current_player = 'X'
+        old_player = 'O'
+
+        while running:
+
+            if current_player == 'X':
+                print(f"\n{self}")
+                inp = input(f'Keuze van {current_player}: ')
+
+                # Check of inp een integer is
+                try:
+                    int(inp)
+                except ValueError:
+                    print(f"Speler, '{current_player}', {inp} is geen integer!")
+                    continue
+            else:
+                inp = self.ai_move(current_player)
+
+            # Checked of wat de speler doet wel mag
+            if not self.allows_move(inp):
+                print(f"Speler, '{current_player}', dat mag niet!")
+                continue
+            
+            # Add move
+            self.add_move(inp, current_player)
+
+            # Check of dat de winnende move was of bord vol is
+            if self.wins_for(current_player) or self.is_full():
+                print(f"\n{self}")
+                if self.is_full():
+                    print(f"Bord is vol -- Niemand heeft gewonnen!")
+                    winner = " "
+                else:
+                    print(f"{current_player} wint -- Gefeliciteerd!")
+                    winner = current_player
+                running = False
+            
+            # Einde ronde, wissel van speler
+            (current_player, old_player) = (old_player, current_player)
+        
+        return winner
 
     def host_game(self) -> str:
         """

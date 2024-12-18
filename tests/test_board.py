@@ -166,6 +166,24 @@ class TestBoard(unittest.TestCase):
         self.assertEqual(winner, 'O')
 
 
+    def test_cols_to_win(self):
+        b = Board(7, 6)
+        b.set_board('334050505')
+        self.assertEqual(b.cols_to_win('X'), [2, 5, 6])
+        self.assertEqual(b.cols_to_win('O'), [0])
+
+    def test_ai_move(self):
+        b = Board(7, 6)
+        b.set_board('334050505')
+        self.assertEqual(b.ai_move('O'), 0)
+        self.assertIn(b.ai_move('X'), [2, 5, 6])
+
+        b = Board(7, 6)
+        b.set_board('42424')
+        self.assertEqual(b.ai_move('X'), 4)
+        self.assertEqual(b.ai_move('O'), 4)
+
+
 
 if __name__ == "__main__":
     unittest.main()
