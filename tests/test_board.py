@@ -1,4 +1,5 @@
 import unittest
+from unittest.mock import patch, MagicMock
 from src.board import Board
 
 class TestBoard(unittest.TestCase):
@@ -124,6 +125,46 @@ class TestBoard(unittest.TestCase):
 
         b = Board(1, 1)
         self.assertEqual(b.wins_for('X'), False)
+
+    @patch('builtins.input', side_effect=['0', '1', '2'])
+    @patch.object(Board, 'allows_move', side_effect=lambda x: True)
+    @patch.object(Board, 'add_move')
+    @patch.object(Board, 'wins_for', side_effect=lambda x: x == 'X')
+    @patch.object(Board, 'is_full', return_value=False)
+    @patch('builtins.print')
+    def test_host_game1(self, mock_print, mock_is_full, mock_wins_for, mock_add_move, mock_allows_move, mock_input):
+        b = Board(0, 1)
+        winner = b.host_game()
+        mock_input.assert_any_call('Keuze van X: ')
+        mock_print.assert_any_call("\n" + str(b))
+        self.assertEqual(winner, 'X')
+
+    @patch('builtins.input', side_effect=['0', '1', '2'])
+    @patch.object(Board, 'allows_move', side_effect=lambda x: True)
+    @patch.object(Board, 'add_move')
+    @patch.object(Board, 'wins_for', side_effect=lambda x: x == 'X')
+    @patch.object(Board, 'is_full', return_value=True)
+    @patch('builtins.print')
+    def test_host_game2(self, mock_print, mock_is_full, mock_wins_for, mock_add_move, mock_allows_move, mock_input):
+        b = Board(0, 1)
+        winner = b.host_game()
+        mock_input.assert_any_call('Keuze van X: ')
+        mock_print.assert_any_call("\n" + str(b))
+        self.assertEqual(winner, ' ')
+
+    @patch('builtins.input', side_effect=['0', '1', '2'])
+    @patch.object(Board, 'allows_move', side_effect=lambda x: True)
+    @patch.object(Board, 'add_move')
+    @patch.object(Board, 'wins_for', side_effect=lambda x: x == 'O')
+    @patch.object(Board, 'is_full', return_value=False)
+    @patch('builtins.print')
+    def test_host_game3(self, mock_print, mock_is_full, mock_wins_for, mock_add_move, mock_allows_move, mock_input):
+        b = Board(0, 1)
+        winner = b.host_game()
+        mock_input.assert_any_call('Keuze van O: ')
+        mock_print.assert_any_call("\n" + str(b))
+        self.assertEqual(winner, 'O')
+
 
 
 if __name__ == "__main__":
