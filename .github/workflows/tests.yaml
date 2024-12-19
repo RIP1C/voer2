@@ -47,4 +47,4 @@ jobs:
 
       - name: Run Make
         run: |
-          make run_tests
+          make
