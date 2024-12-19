@@ -159,7 +159,13 @@ class Board:
 
         # TODO: Demian
     def del_move(self, col):
-        pass
+        
+        if col < 0 or col >= self.width:
+            return
+        for row in range(self.height):
+            if self.data[row][col] != ' ':
+                self.data[row][col] = ' '
+                return
 
         # TODO: Nelson
     def wins_for(self, ox) -> bool:
@@ -172,21 +178,64 @@ class Board:
         
     def cols_to_win(self, ox):
         
-        ai = []
-        if self.allows_move() == True:
-            return self.add_move()
-        if self.wins_for() == True:
-            ai += col
+        ai = [self.width]
+        for row in range(self.height):
+            for col in range(self.width):
+                if self.allows_move(col) == True:
+                    self.add_move(col, ox)
+                if self.wins_for(ox) == True:
+                    ai.append(col)
+                self.del_move(col)
+        return ai
 
 
-    def ai_move(self, ox):     
+    def ai_move(self, ox):
+        
+        player = 'X' # of player is O
+
+        oppenent = 'O' if player == 'X' else 'X'
+
+        winning_cols = self.cols_to_win(ox)
+
+        oppenent_winning_cols = self.cols_to_win(oppenent)
+
+        if winning_cols:
+            return winning_cols
+        
+        if oppenent_winning_cols:
+            return oppenent_winning_cols
+        
+        lege_kolommen = [col for col in range(len(Board[0])) if Board[0][col] == ' ']
+
+        if lege_kolommen:
+            return [lege_kolommen[0]] 
+        
+        return None
+
+        #if self.cols_to_win(ox) == True:
+            #self.add_move(ox)
+        #else:
+            #self.cols_to_win(oppenent)
+        
+
+
+        
+           
 
 
     # TODO: Bas
-    def host_game(self):
+    #def host_game(self):
         pass
 
-b = Board(2, 2)
-assert b.allows_move(1) == True
-assert b.allows_move(2) == False
+#b = Board(2, 2)
+#assert b.allows_move(1) == True
+#assert b.allows_move(2) == False
+
+b = Board(7, 6)
+#b.set_board('334050505')
+print(b)
+print(b.ai_move())
+#print(b.cols_to_win('O'))
+
+
 
