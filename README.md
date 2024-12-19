@@ -1,4 +1,4 @@
-[![tests](https://github.com/RIP1C/voer2/actions/workflows/tests.yaml/badge.svg)](https://github.com/RIP1C/voer2/actions/workflows/tests.yaml)
+[![Run Checks](https://github.com/RIP1C/voer2/actions/workflows/checks.yaml/badge.svg)](https://github.com/RIP1C/voer2/actions/workflows/checks.yaml)
 
 # voer2
 Vier Op Een Rij
