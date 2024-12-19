@@ -3,7 +3,8 @@
 # voer2
 Vier Op Een Rij
 
-Enter in to the terminal, while in the main folder (~/voer2/)
-    To play with AI:    make
-    To play without AI: make run
-    To unittest:        make test
+Enter into the terminal while in the main folder (`~/voer2/`):
+
+- To play with AI: `make`
+- To play without AI: `make run`
+- To run unit tests: `make test`
