@@ -3,5 +3,7 @@
 # voer2
 Vier Op Een Rij
 
-To test, type 'make' into the terminal inside the voer2 directory. \
-To play, type 'python src/main.py into the terminal inside the voer2 directory.
+Enter in to the terminal, while in the main folder (~/voer2/)
+    To play with AI:    make
+    To play without AI: make run
+    To unittest:        make test
