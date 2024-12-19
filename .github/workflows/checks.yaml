@@ -10,6 +10,7 @@ on:
 
 jobs:
   testing:
+    name: python-unittests
     runs-on: ubuntu-latest
 
     steps:
