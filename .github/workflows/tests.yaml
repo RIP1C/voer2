@@ -10,41 +10,17 @@ on:
 
 jobs:
   testing:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Install dependencies
-        run: |
-          sudo apt update
-          sudo apt install -y build-essential checkinstall \
-                             zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev \
-                             libssl-dev libreadline-dev libffi-dev curl \
-                             libbz2-dev
-  
-      - name: Download and Install Python 3.14
-        run: |
-          # Download Python 3.14 (adjust to the actual version once released)
-          PYTHON_VERSION=3.14.0
-          curl -O https://www.python.org/ftp/python/$PYTHON_VERSION/Python-$PYTHON_VERSION.tgz
-          
-          # Extract the tarball
-          tar -xvzf Python-$PYTHON_VERSION.tgz
-          
-          # Change into the extracted directory
-          cd Python-$PYTHON_VERSION
-          
-          # Prepare and install Python
-          ./configure --enable-optimizations
-          make -j 4  # Compile using 4 cores (you can adjust this number)
-          sudo make altinstall  # Altinstall to avoid overwriting the system Python
-  
-      - name: Verify Python installation
-        run: |
-          python3.14 --version  # Ensure Python 3.14 is correctly installed
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.9'
 
       - name: Run Make
         run: |
-          make
+          make run_tests
