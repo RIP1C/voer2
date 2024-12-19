@@ -1,2 +1,3 @@
 class Player:
-    pass
+    def test_func():
+        pass
