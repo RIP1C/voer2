@@ -228,7 +228,7 @@ class Board():
         elif opp_len > 0:
             return opp_pot_wins[random.randrange(opp_len)]
         else:
-            return random.randrange(self.width - 1)
+            return random.randrange(self.width)
 
 
 
