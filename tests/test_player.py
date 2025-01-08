@@ -10,11 +10,11 @@ class TestPlayer(unittest.TestCase):
         p = Player('O', "RANDOM", 0)
         self.assertEqual(repr(p), "Player: ox = O, tbt = RANDOM, ply = 0")
     
-    def test_opp_chr(self):
+    def test_opp_ch(self):
         p = Player('X', "LEFT", 3)
         
         self.assertEqual(p.opp_ch(), 'O')
-        self.assertEqual(Player('O', "LEFT", 0))
+        self.assertEqual(Player('O', "LEFT", 0), 'X')
 
     def test_score_board(self):
         b = Board(7, 6)
